@@ -38,26 +38,25 @@ Optimize the public transport routes in various ways and try to transport as man
 The challenge is solved best in an incremental way. The rating criterias depends on the level reached.
 
 ##### Level 1
-The goal here is to ensure that we transport as much passenger as possible and fullfill the needs with a minimal amount of buses of the same capacity.
+The goal here is to ensure that we transport as much passenger as possible and fullfill the needs with a minimal amount of buses of the same capacity (type `BUS_L`).
 The score will be calculated based on:
-- number of buses
-- number of passengers not transported
+- maximum number of simultaneous buses
+- number of passengers not transported at the end of the simulation
 
 ##### Level 2
-The goal is here to reduce the number of kilometers driven by all the buses in total and minimize again the number of buses.
+The goal is here to reduce the number of kilometers driven by all the buses in total and minimize again the number of buses of the same capacity (type `BUS_L`).
 The score will be calculated based on:
-- number of buses
+- maximum number of simultaneous buses
 - kilometers driven by all buses
 - total wait time of all transported passengers
-- number of passengers not transported
-- bonus for level2
+- number of passengers not transported at the end of the simulation
+- bonus for completing Level 2
 
 ##### Level 3
 In addition to level 2, we need to minimize the total capacity of all buses in addition. Therefore, this level allows to use smaller bus sizes as well.
 The score will be calculated based on:
-- number of buses
-- kilometers driven by all buses
+- maximum number of simultaneous buses of each type
+- kilometers driven by all buses per type of bus
 - total wait time of all transported passengers
-- number of passengers not transported
-- total capacity of all buses
-- bonus for level3
+- number of passengers not transported at the end of the simulation
+- bonus for completing Level 3
