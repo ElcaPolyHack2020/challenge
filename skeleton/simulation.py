@@ -2,6 +2,7 @@ from time import sleep
 import sys
 import traci
 import traci.constants as tc
+from statistics_probe import StatisticsProbe
 
 class Simulation:
     def __init__(self, simulation_steps, sleep_time, pedestrians, bus_depot_start_edge, bus_depot_end_edge):
@@ -37,12 +38,16 @@ class Simulation:
 
         traci.vehicle.subscribe('bus_0', (tc.VAR_ROAD_ID, tc.VAR_LANEPOSITION, tc.VAR_POSITION , tc.VAR_NEXT_STOPS ))
 
+        stat_probe = StatisticsProbe(self.bus_depot_end_edge)        
         step = 0
         while step <= self.simulation_steps:
             traci.simulationStep()
+
+
             if self.sleep_time > 0: 
                 sleep(self.sleep_time)
             step += 1
-            #print(traci.vehicle.getSubscriptionResults('bus_0'))
+            stat_probe.measure(step)
 
+        stat_probe.write_results('stat_results.csv', 0, 900)
         traci.close()
